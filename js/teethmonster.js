@@ -44,26 +44,16 @@ $(function () {
       rings = 16;
       
   // create the sphere's material
-  var sphereMaterial =
-    new THREE.MeshLambertMaterial(
+  var cubeMaterial =
+    new THREE.MeshBasicMaterial(
       {
         color: 0xCC0000
       });
-
-  // create a new mesh with
-  // sphere geometry - we will cover
-  // the sphereMaterial next!
-  var sphere = new THREE.Mesh(
-
-    new THREE.SphereGeometry(
-      radius,
-      segments,
-      rings),
-
-    sphereMaterial);
+  var cubeGeometry = new THREE.CubeGeometry(50, 50, 50);
+  var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
 
   // add the sphere to the scene
-  scene.add(sphere);
+  scene.add(cube);
   
   // create a point light
   var pointLight =
@@ -79,4 +69,14 @@ $(function () {
   
   // draw!
   renderer.render(scene, camera);
+  
+  function animate() {
+    requestAnimationFrame(animate);
+    
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.02;
+    
+    renderer.render(scene, camera);
+  }
+  animate();
 });
