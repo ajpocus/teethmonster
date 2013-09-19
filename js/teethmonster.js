@@ -24,26 +24,11 @@ $(function () {
       FAR);
 
   var scene = new THREE.Scene();
-
-  // add the camera to the scene
   scene.add(camera);
-
-  // the camera starts at 0,0,0
-  // so pull it back
   camera.position.z = 300;
-
-  // start the renderer
   renderer.setSize(WIDTH, HEIGHT);
-
-  // attach the render-supplied DOM element
   $container.append(renderer.domElement);
 
-  // set up the sphere vars
-  var radius = 50,
-      segments = 16,
-      rings = 16;
-      
-  // create the sphere's material
   var cubeMaterial =
     new THREE.MeshBasicMaterial(
       {
@@ -51,8 +36,6 @@ $(function () {
       });
   var cubeGeometry = new THREE.CubeGeometry(50, 50, 50);
   var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-
-  // add the sphere to the scene
   scene.add(cube);
   
   // create a point light
