@@ -62,8 +62,8 @@ $(function () {
     var sphereGeometry = new THREE.SphereGeometry(radius, segments, rings);
     var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
     
-    sphere.position.x = Math.floor(Math.random() * WIDTH*100) - WIDTH/2*100;
-    sphere.position.y = Math.floor(Math.random() * HEIGHT*100) - HEIGHT/2*100;
+    sphere.position.x = Math.floor(Math.random() * WIDTH*50) - WIDTH/2*50;
+    sphere.position.y = Math.floor(Math.random() * HEIGHT*50) - HEIGHT/2*50;
     sphere.position.z = -50000;
     
     scene.add(sphere);
