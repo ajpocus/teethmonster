@@ -7,7 +7,7 @@ $(function () {
   var VIEW_ANGLE = 45,
     ASPECT = WIDTH / HEIGHT,
     NEAR = 0.1,
-    FAR = 50000;
+    FAR = 10000;
 
   // get the DOM element to attach to
   // - assume we've got jQuery to hand
@@ -35,7 +35,7 @@ $(function () {
     new THREE.AmbientLight(0x404040);
 
   // set its position
-  pointLight.position.x = 10;
+  pointLight.position.x = 0;
   pointLight.position.y = 50;
   pointLight.position.z = 130;
 
@@ -49,20 +49,44 @@ $(function () {
     frameCount = 0;
   var COLORS = [0xCC0000, 0x00CC00, 0x0000CC]; 
   
+  var moveLeft = false,
+      moveRight = false;
+  $("body").keydown(function (ev) {
+    var LEFT_ARROW = 37,
+      RIGHT_ARROW = 39;
+
+    if (ev.which === LEFT_ARROW) {
+      moveLeft = true;
+    }
+    
+    if (ev.which === RIGHT_ARROW) {
+      moveRight = true;
+    }
+  });
+  
+  $("body").keyup(function () {
+    moveLeft = false;
+    moveRight = false;
+  });
+  
   function animate() {
     requestAnimationFrame(animate);
     frameCount++;
     
-    if (frameCount % 2 === 0) {
+    if (frameCount % 4 === 0) {
         frameCount = 0;
         var cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xCCCC00 });
         var cubeGeometry = new THREE.CubeGeometry(50, 50, 50);
         var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
         
-        cube.position.x = Math.floor(Math.random() * WIDTH*4) - WIDTH * 2;
+        var maxX = WIDTH * 8,
+          minX = 0 - maxX;
+        
+        cube.position.x = Math.floor(Math.random() * (maxX - minX) + minX);
+        
         cube.position.y = HEIGHT / 4;
         cube.position.z = -10000;
-        
+
         scene.add(cube);
         cubes.push(cube);  
     }
@@ -75,6 +99,15 @@ $(function () {
         scene.remove(cubes[i]);
         cubes.splice(i, 1);      
       }
+    }
+    
+    var moveSpeed = 32;
+    if (moveLeft) {
+      camera.position.x -= moveSpeed;
+    }
+    
+    if (moveRight) {
+      camera.position.x += moveSpeed;
     }
     
     renderer.render(scene, camera);
