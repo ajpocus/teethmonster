@@ -45,7 +45,6 @@ $(function () {
   renderer.render(scene, camera);
   
   var spheres = [],
-    radius = 50,
     segments = 16,
     rings = 16,
     frameCount = 0;
@@ -53,7 +52,11 @@ $(function () {
   
   function animate() {
     requestAnimationFrame(animate);
-    
+
+    var rMin = 50;
+    var rMax = 1000;    
+    var radius = Math.floor(Math.random() * (rMax - rMin) + rMin);
+
     var color = COLORS[Math.floor(Math.random() * COLORS.length)];
     var sphereMaterial = new THREE.MeshBasicMaterial({ color: color });
     var sphereGeometry = new THREE.SphereGeometry(radius, segments, rings);
