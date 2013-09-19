@@ -73,14 +73,14 @@ $(function () {
     requestAnimationFrame(animate);
     frameCount++;
     
-    if (frameCount % 4 === 0) {
+    if (frameCount % 2 === 0) {
         frameCount = 0;
         var cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xCCCC00 });
-        var cubeGeometry = new THREE.CubeGeometry(50, 50, 50);
+        var cubeGeometry = new THREE.CubeGeometry(64, 64, 64);
         var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
         
-        var maxX = WIDTH * 8,
-          minX = 0 - maxX;
+        var maxX = camera.position.x + (WIDTH * 4),
+          minX = camera.position.x - (WIDTH * 4);
         
         cube.position.x = Math.floor(Math.random() * (maxX - minX) + minX);
         
