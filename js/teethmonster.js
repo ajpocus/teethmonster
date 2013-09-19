@@ -53,19 +53,20 @@ $(function () {
   
   function animate() {
     requestAnimationFrame(animate);
+    
+    for (var i = 0; i < 5; i++) {
+      var color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      var sphereMaterial = new THREE.MeshBasicMaterial({ color: color });
+      var sphereGeometry = new THREE.SphereGeometry(radius, segments, rings);
+      var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
       
-    var color = COLORS[Math.floor(Math.random() * COLORS.length)];
-    var sphereMaterial = new THREE.MeshBasicMaterial({ color: color });
-    var sphereGeometry = new THREE.SphereGeometry(radius, segments, rings);
-    var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-    
-    sphere.position.x = Math.floor(Math.random() * WIDTH*100) - WIDTH/2*100;
-    sphere.position.y = Math.floor(Math.random() * HEIGHT*100) - HEIGHT/2*100;
-    sphere.position.z = -50000;
-    
-    scene.add(sphere);
-    spheres.push(sphere);
-  
+      sphere.position.x = Math.floor(Math.random() * WIDTH*100) - WIDTH/2*100;
+      sphere.position.y = Math.floor(Math.random() * HEIGHT*100) - HEIGHT/2*100;
+      sphere.position.z = -50000;
+      
+      scene.add(sphere);
+      spheres.push(sphere);    
+    }
     
     for (var i = 0; i < spheres.length; i++) {
       var speedMin = 192;
