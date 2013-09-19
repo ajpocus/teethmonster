@@ -7,7 +7,7 @@ $(function () {
   var VIEW_ANGLE = 45,
     ASPECT = WIDTH / HEIGHT,
     NEAR = 0.1,
-    FAR = 10000;
+    FAR = 50000;
 
   // get the DOM element to attach to
   // - assume we've got jQuery to hand
@@ -56,7 +56,7 @@ $(function () {
     
     frameCount++;
     
-    if (frameCount % 10 === 0) {
+    if (frameCount % 5 === 0) {
       frameCount = 0;
       
       var color = COLORS[Math.floor(Math.random() * COLORS.length)];
@@ -66,15 +66,15 @@ $(function () {
       
       sphere.position.x = Math.floor(Math.random() * WIDTH) - WIDTH/2;
       sphere.position.y = Math.floor(Math.random() * HEIGHT) - HEIGHT/2;
-      sphere.position.z = -1000;
+      sphere.position.z = -50000;
       
       scene.add(sphere);
       spheres.push(sphere);
     }
     
     for (var i = 0; i < spheres.length; i++) {
-      var speedMin = 8;
-      var speedMax = 32;
+      var speedMin = 192;
+      var speedMax = 256;
       var speed = Math.floor(Math.random() * (speedMax - speedMin) + speedMin);
       spheres[i].position.z += speed;
       
