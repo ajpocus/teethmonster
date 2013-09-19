@@ -29,18 +29,9 @@ $(function () {
   renderer.setSize(WIDTH, HEIGHT);
   $container.append(renderer.domElement);
 
-  var cubeMaterial =
-    new THREE.MeshBasicMaterial(
-      {
-        color: 0xCC0000
-      });
-  var cubeGeometry = new THREE.CubeGeometry(50, 50, 50);
-  var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-  scene.add(cube);
-  
   // create a point light
   var pointLight =
-    new THREE.PointLight(0xFFFFFF);
+    new THREE.AmbientLight(0x404040);
 
   // set its position
   pointLight.position.x = 10;
@@ -53,11 +44,34 @@ $(function () {
   // draw!
   renderer.render(scene, camera);
   
+  var spheres = [];
   function animate() {
     requestAnimationFrame(animate);
     
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.02;
+    if (spheres.length < 10) {
+      var radius = 50,
+      segments = 16,
+      rings = 16;
+      
+      var sphereMaterial = new THREE.MeshBasicMaterial({ color: 0x0000CC });
+      var sphereGeometry = new THREE.SphereGeometry(radius, segments, rings);
+      var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+      
+      sphere.position.x = Math.floor(Math.random() * 400);
+      sphere.position.y = Math.floor(Math.random() * 300);
+      sphere.position.z = -1000;
+      
+      scene.add(sphere);
+      spheres.push(sphere);
+    }
+    
+    for (var i = 0; i < spheres.length; i++) {
+      spheres[i].position.z += 1;
+      if (spheres[i].position.z > 300) {
+        scene.remove(spheres[i]);
+        delete spheres[i];      
+      }
+    }
     
     renderer.render(scene, camera);
   }
