@@ -66,10 +66,10 @@ $(function () {
     }
     
     for (var i = 0; i < spheres.length; i++) {
-      spheres[i].position.z += 1;
+      spheres[i].position.z += 10;
       if (spheres[i].position.z > 300) {
         scene.remove(spheres[i]);
-        delete spheres[i];      
+        spheres.splice(i, 1);      
       }
     }
     
