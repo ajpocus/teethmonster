@@ -69,6 +69,26 @@ $(function () {
     moveRight = false;
   });
   
+  // player's triangle
+  var geom = new THREE.Geometry();
+  var v1 = new THREE.Vector3(0,0,0);
+  var v2 = new THREE.Vector3(20,0,0);
+  var v3 = new THREE.Vector3(10,20,0);
+  
+  console.log(geom.vertices)
+  geom.vertices.push(new THREE.Vertex(v1));
+  geom.vertices.push(new THREE.Vertex(v2));
+  geom.vertices.push(new THREE.Vertex(v3));
+  
+  geom.faces.push( new THREE.Face3( 0, 1, 2 ) );
+  geom.computeFaceNormals();
+  
+  var triangle = new THREE.Mesh( geom, new THREE.MeshNormalMaterial() );
+  triangle.position.x = camera.position.x;
+  triangle.position.y = camera.position.y;
+  
+  scene.add(triangle);
+  
   function animate() {
     requestAnimationFrame(animate);
     frameCount++;
@@ -91,6 +111,8 @@ $(function () {
         cubes.push(cube);  
     }
     
+    
+    
     for (var i = 0; i < cubes.length; i++) {
       var speed = 72;
       cubes[i].position.z += speed;
@@ -109,6 +131,9 @@ $(function () {
     if (moveRight) {
       camera.position.x += moveSpeed;
     }
+    
+    triangle.position.x = camera.position.x;
+    triangle.position.y = camera.position.y - 100;
     
     renderer.render(scene, camera);
   }
