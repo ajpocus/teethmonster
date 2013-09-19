@@ -1,7 +1,7 @@
 $(function () {
   // set the scene size
-  var WIDTH = 400,
-    HEIGHT = 300;
+  var WIDTH = 1024,
+    HEIGHT = 768;
 
   // set some camera attributes
   var VIEW_ANGLE = 45,
@@ -49,7 +49,8 @@ $(function () {
     segments = 16,
     rings = 16,
     frameCount = 0;
-    
+  var COLORS = [0xCC0000, 0x00CC00, 0x0000CC]; 
+  
   function animate() {
     requestAnimationFrame(animate);
     
@@ -58,12 +59,13 @@ $(function () {
     if (frameCount % 10 === 0) {
       frameCount = 0;
       
-      var sphereMaterial = new THREE.MeshBasicMaterial({ color: 0x0000CC });
+      var color = COLORS[Math.floor(Math.random() * COLORS.length)];
+      var sphereMaterial = new THREE.MeshBasicMaterial({ color: color });
       var sphereGeometry = new THREE.SphereGeometry(radius, segments, rings);
       var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
       
-      sphere.position.x = Math.floor(Math.random() * 800) - 400;
-      sphere.position.y = Math.floor(Math.random() * 600) - 300;
+      sphere.position.x = Math.floor(Math.random() * WIDTH) - WIDTH/2;
+      sphere.position.y = Math.floor(Math.random() * HEIGHT) - HEIGHT/2;
       sphere.position.z = -1000;
       
       scene.add(sphere);
