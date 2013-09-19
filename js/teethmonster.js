@@ -71,7 +71,11 @@ $(function () {
     }
     
     for (var i = 0; i < spheres.length; i++) {
-      spheres[i].position.z += 10;
+      var speedMin = 8;
+      var speedMax = 32;
+      var speed = Math.floor(Math.random() * (speedMax - speedMin) + speedMin);
+      spheres[i].position.z += speed;
+      
       if (spheres[i].position.z > 300) {
         scene.remove(spheres[i]);
         spheres.splice(i, 1);      
