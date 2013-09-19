@@ -25,6 +25,7 @@ $(function () {
 
   var scene = new THREE.Scene();
   scene.add(camera);
+  camera.position.y = 300;
   camera.position.z = 300;
   renderer.setSize(WIDTH, HEIGHT);
   $container.append(renderer.domElement);
@@ -44,40 +45,35 @@ $(function () {
   // draw!
   renderer.render(scene, camera);
   
-  var spheres = [],
-    segments = 16,
-    rings = 16,
+  var cubes = [],
     frameCount = 0;
   var COLORS = [0xCC0000, 0x00CC00, 0x0000CC]; 
   
   function animate() {
     requestAnimationFrame(animate);
-
-    var rMin = 50;
-    var rMax = 1000;    
-    var radius = Math.floor(Math.random() * (rMax - rMin) + rMin);
-
-    var color = COLORS[Math.floor(Math.random() * COLORS.length)];
-    var sphereMaterial = new THREE.MeshBasicMaterial({ color: color });
-    var sphereGeometry = new THREE.SphereGeometry(radius, segments, rings);
-    var sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    frameCount++;
     
-    sphere.position.x = Math.floor(Math.random() * WIDTH*50) - WIDTH/2*50;
-    sphere.position.y = Math.floor(Math.random() * HEIGHT*50) - HEIGHT/2*50;
-    sphere.position.z = -50000;
+    if (frameCount % 2 === 0) {
+        frameCount = 0;
+        var cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xCCCC00 });
+        var cubeGeometry = new THREE.CubeGeometry(50, 50, 50);
+        var cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+        
+        cube.position.x = Math.floor(Math.random() * WIDTH*4) - WIDTH * 2;
+        cube.position.y = HEIGHT / 4;
+        cube.position.z = -10000;
+        
+        scene.add(cube);
+        cubes.push(cube);  
+    }
     
-    scene.add(sphere);
-    spheres.push(sphere);    
-    
-    for (var i = 0; i < spheres.length; i++) {
-      var speedMin = 192;
-      var speedMax = 768;
-      var speed = Math.floor(Math.random() * (speedMax - speedMin) + speedMin);
-      spheres[i].position.z += speed;
+    for (var i = 0; i < cubes.length; i++) {
+      var speed = 72;
+      cubes[i].position.z += speed;
       
-      if (spheres[i].position.z > 300) {
-        scene.remove(spheres[i]);
-        spheres.splice(i, 1);      
+      if (cubes[i].position.z > 300) {
+        scene.remove(cubes[i]);
+        cubes.splice(i, 1);      
       }
     }
     
