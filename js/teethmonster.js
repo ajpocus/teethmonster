@@ -71,7 +71,7 @@ $(function () {
     
     for (var i = 0; i < spheres.length; i++) {
       var speedMin = 192;
-      var speedMax = 256;
+      var speedMax = 768;
       var speed = Math.floor(Math.random() * (speedMax - speedMin) + speedMin);
       spheres[i].position.z += speed;
       
