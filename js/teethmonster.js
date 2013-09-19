@@ -44,14 +44,19 @@ $(function () {
   // draw!
   renderer.render(scene, camera);
   
-  var spheres = [];
+  var spheres = [],
+    radius = 50,
+    segments = 16,
+    rings = 16,
+    frameCount = 0;
+    
   function animate() {
     requestAnimationFrame(animate);
     
-    if (spheres.length < 10) {
-      var radius = 50,
-      segments = 16,
-      rings = 16;
+    frameCount++;
+    
+    if (frameCount % 10 === 0) {
+      frameCount = 0;
       
       var sphereMaterial = new THREE.MeshBasicMaterial({ color: 0x0000CC });
       var sphereGeometry = new THREE.SphereGeometry(radius, segments, rings);
